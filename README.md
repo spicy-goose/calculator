@@ -1,0 +1,1 @@
+This is the calculator project from The Odin Project. Link: https://www.theodinproject.com/lessons/foundations-calculator
