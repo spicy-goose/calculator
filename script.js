@@ -3,10 +3,11 @@ const keys = Array.from(document.querySelectorAll(".number"));
 const operators = Array.from(document.querySelectorAll(".operator"));
 const equalKey = document.getElementById('equal');
 const clearKey = document.getElementById('clear');
+const signChange = document.getElementById('sign-change');
+
 
 let input1 = ""; 
 let input2 = "";
-let previousOperation = "";
 let currentOperation = "";
 
 function add(n1, n2){
@@ -94,8 +95,22 @@ function isAnyOperatorActive(){
     return operators.some(operator => operator.classList.contains('active'))
 }
 
+function changeSign(){
+    if (input2.includes('-') == false && input2 != false){
+        input2 = `-${input2}`;
+        displayText.textContent = input2;
+        return
+    }else if (input2 != false){
+        input2 = `${Math.abs(+input2)}`;
+        displayText.textContent = input2;
+        return
+    }
+    return
+}
 
-keys.forEach(key => key.addEventListener('click', updateDisplay))
-operators.forEach(operator => operator.addEventListener('click', lightUpOperator))
-clearKey.addEventListener("click", clearDisplay)
-equalKey.addEventListener("click", getResult)
+
+keys.forEach(key => key.addEventListener('click', updateDisplay));
+operators.forEach(operator => operator.addEventListener('click', lightUpOperator));
+clearKey.addEventListener("click", clearDisplay);
+equalKey.addEventListener("click", getResult);
+signChange.addEventListener("click", changeSign);
