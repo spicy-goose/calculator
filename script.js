@@ -1,11 +1,13 @@
 const displayText = document.querySelector('.display-text');
 const keys = Array.from(document.querySelectorAll(".number"));
 const operators = Array.from(document.querySelectorAll(".operator"));
+const equalKey = document.getElementById('equal');
 const clearKey = document.getElementById('clear');
 
 let input1 = ""; 
 let input2 = "";
-currentOperation = "";
+let previousOperation = "";
+let currentOperation = "";
 
 function add(n1, n2){
     return n1+n2
@@ -37,12 +39,13 @@ function clearDisplay(){
     lightOffOperators()
     input1 = "";
     input2 = "";
+    currentOperation = "";
     displayText.textContent = 0;
 }
 
 function lightUpOperator(e){
     checkForOperation()
-    currentOperation = e.target.id
+    currentOperation = e.target.id;
     lightOffOperators()
     e.target.classList.add("active")
 }
@@ -52,8 +55,18 @@ function checkForOperation(){
         input1 = performOperation(input1, input2, currentOperation);
         input2 = "";
         displayText.textContent = input1;
-
-    };
+        return
+    }else if(input2 !== ""){
+    input1 = input2;
+    input2 = "";
+    displayText.textContent = input1;
+    return
+    }
+}
+function getResult(){
+    checkForOperation();
+    input1 = "";
+    input2 = "";
 }
 
 function performOperation(num1, num2, operation){
@@ -85,3 +98,4 @@ function isAnyOperatorActive(){
 keys.forEach(key => key.addEventListener('click', updateDisplay))
 operators.forEach(operator => operator.addEventListener('click', lightUpOperator))
 clearKey.addEventListener("click", clearDisplay)
+equalKey.addEventListener("click", getResult)
