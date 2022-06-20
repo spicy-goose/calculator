@@ -23,6 +23,16 @@ body{
     aspect-ratio: 4/1;
     width: 300px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.display-text{
+    margin:0;
+    padding: 5px;
+    width: 100%;
+    text-align: right;
+    font-size: 35px;
+    
 }
 .pad{
     display: flex;
