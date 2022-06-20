@@ -6,8 +6,8 @@ const clearKey = document.getElementById('clear');
 const signChange = document.getElementById('sign-change');
 
 
-let input1 = ""; 
-let input2 = "";
+let memory = ""; 
+let input = "";
 let currentOperation = "";
 
 function add(n1, n2){
@@ -32,17 +32,18 @@ function remainder(n1, n2){
 
 function updateDisplay(e){
     if (currentOperation == ""){
-        input1 = "";  //Resets the calculator memory
+        memory = "";  //Resets the calculator memory if typing with no operations pending
     }
-    input2 += e.target.innerText;
-    displayText.textContent = input2;
+    if (input.includes(".") && e.target.innerText == ".") return undefined; //disables users from inputting multiple dots
+    input += e.target.innerText;
+    displayText.textContent = input;
     lightOffOperators()
 }
 
 function clearDisplay(){
     lightOffOperators()
-    input1 = "";
-    input2 = "";
+    memory = "";
+    input = "";
     currentOperation = "";
     displayText.textContent = 0;
 }
@@ -55,22 +56,25 @@ function lightUpOperator(e){
 }
 
 function checkForOperation(){
-    if (input2 !== "" && currentOperation !== ""){
-        input1 = performOperation(input1, input2, currentOperation);
-        input2 = "";
-        displayText.textContent = input1;
+    if (input !== "" && currentOperation !== ""){
+        memory = performOperation(memory, input, currentOperation);
+        input = "";
+        displayText.textContent = memory;
         return
-    }else if(input2 !== ""){
-    input1 = input2;
-    input2 = "";
-    displayText.textContent = input1;
+    }else if(input !== ""){
+    memory = input;
+    input = "";
+    if (memory.includes())
+    displayText.textContent = memory;
     return
     }
 }
+
+
 function getResult(){
     checkForOperation();
     currentOperation = "";
-    input2 = "";
+    input = "";
 }
 
 function performOperation(num1, num2, operation){
@@ -99,13 +103,13 @@ function isAnyOperatorActive(){
 }
 
 function changeSign(){
-    if (input2.includes('-') == false && input2 != false){
-        input2 = `-${input2}`;
-        displayText.textContent = input2;
+    if (input.includes('-') == false && input != false){
+        input = `-${input}`;
+        displayText.textContent = input;
         return
-    }else if (input2 != false){
-        input2 = `${Math.abs(+input2)}`;
-        displayText.textContent = input2;
+    }else if (input != false){
+        input = `${Math.abs(+input)}`;
+        displayText.textContent = input;
         return
     }
     return
