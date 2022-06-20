@@ -3,7 +3,7 @@ const keys = Array.from(document.querySelectorAll(".number"));
 const operators = Array.from(document.querySelectorAll(".operator"));
 const clearKey = document.getElementById('clear');
 
-let input1 = 0; 
+let input1 = ""; 
 let input2 = "";
 currentOperation = "";
 
@@ -12,7 +12,7 @@ function add(n1, n2){
 }
 
 function subtract(n1, n2){
-    return n1-n2
+    return (n1 === "")? n2: +n1-n2
 }
 
 function multiply(n1, n2){
@@ -41,15 +41,15 @@ function clearDisplay(){
 }
 
 function lightUpOperator(e){
-    currentOperation = e.target.id
     checkForOperation()
+    currentOperation = e.target.id
     lightOffOperators()
     e.target.classList.add("active")
 }
 
 function checkForOperation(){
-    if (input2 !== ""){
-        input1 = performOperation(+input1, +input2, currentOperation);
+    if (input2 !== "" && currentOperation !== ""){
+        input1 = performOperation(input1, input2, currentOperation);
         input2 = "";
         displayText.textContent = input1;
 
@@ -59,9 +59,9 @@ function checkForOperation(){
 function performOperation(num1, num2, operation){
     switch (operation){
         case "add":
-            return add(num1, num2)
+            return add(+num1, +num2)
         case "subtract":
-            return subtract(num1, num2)
+            return subtract(num1, +num2)
         case "multiply":
             return multiply(num1, num2)
         case "divide":
