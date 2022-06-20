@@ -31,6 +31,9 @@ function remainder(n1, n2){
 }
 
 function updateDisplay(e){
+    if (currentOperation == ""){
+        input1 = "";  //Resets the calculator memory
+    }
     input2 += e.target.innerText;
     displayText.textContent = input2;
     lightOffOperators()
@@ -66,7 +69,7 @@ function checkForOperation(){
 }
 function getResult(){
     checkForOperation();
-    input1 = "";
+    currentOperation = "";
     input2 = "";
 }
 
