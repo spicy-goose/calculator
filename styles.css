@@ -49,3 +49,7 @@ button{
     aspect-ratio: 1/1;
     width: 75px
 }
+.active{
+    background-color: lightsalmon;
+    border: 1px solid gray;
+}
