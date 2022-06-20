@@ -23,6 +23,9 @@ function multiply(n1, n2){
 }
 
 function divide(n1, n2){
+    if (n2 == 0) {
+        return "ERROR"
+    }
     return n1/n2
 }
 
@@ -34,7 +37,8 @@ function updateDisplay(e){
     if (currentOperation == ""){
         memory = "";  //Resets the calculator memory if typing with no operations pending
     }
-    if (input.includes(".") && e.target.innerText == ".") return undefined; //disables users from inputting multiple dots
+    //disables users from inputting multiple dots
+    if (input.includes(".") && e.target.innerText == ".") return undefined; 
     input += e.target.innerText;
     displayText.textContent = input;
     lightOffOperators()
@@ -58,18 +62,27 @@ function lightUpOperator(e){
 function checkForOperation(){
     if (input !== "" && currentOperation !== ""){
         memory = performOperation(memory, input, currentOperation);
-        input = "";
-        displayText.textContent = memory;
+        output()
         return
     }else if(input !== ""){
-    memory = input;
-    input = "";
-    if (memory.includes())
-    displayText.textContent = memory;
-    return
+        memory = input;
+        output()
     }
 }
 
+function output(){
+    input = "";
+    if  (memory.toString().includes(".")) {
+        memory = Number(+memory).toFixed(9);
+    }
+    if (memory == "ERROR"){
+        clearDisplay()
+        displayText.textContent = "Try calling MIT?";
+        return
+    }
+    displayText.textContent = memory;
+    return
+}
 
 function getResult(){
     checkForOperation();
