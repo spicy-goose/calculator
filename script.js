@@ -1,4 +1,5 @@
 const displayText = document.querySelector('.display-text');
+const memoryText = document.querySelector('.memory');
 const keys = Array.from(document.querySelectorAll(".number"));
 const operators = Array.from(document.querySelectorAll(".operator"));
 const equalKey = document.getElementById('equal');
@@ -11,18 +12,22 @@ let input = "";
 let currentOperation = "";
 
 function add(n1, n2){
+    memoryText.textContent = `${n1} + ${n2}`
     return n1+n2
 }
 
 function subtract(n1, n2){
+    memoryText.textContent = `${n1} - ${n2}`
     return (n1 === "")? n2: +n1-n2
 }
 
 function multiply(n1, n2){
+    memoryText.textContent = `${n1} * ${n2}`
     return n1*n2
 }
 
 function divide(n1, n2){
+    memoryText.textContent = `${n1} / ${n2}`
     if (n2 == 0) {
         return "ERROR"
     }
@@ -30,12 +35,15 @@ function divide(n1, n2){
 }
 
 function remainder(n1, n2){
+    memoryText.textContent = `${n1} % ${n2}`
     return n1%n2
 }
 
 function updateDisplay(e){
+    //Resets the calculator memory if typing with no operations pending
     if (currentOperation == ""){
-        memory = "";  //Resets the calculator memory if typing with no operations pending
+        memory = "";  
+        memoryText.textContent = "";
     }
     //disables users from inputting multiple dots
     if (input.includes(".") && e.target.innerText == ".") return undefined; 
@@ -50,28 +58,33 @@ function clearDisplay(){
     memory = "";
     input = "";
     currentOperation = "";
+    memoryText.textContent = "";
     displayText.textContent = 0;
 }
 
 function lightUpOperator(e){
-    checkForOperation()
+    checkForOperation(e)
     currentOperation = e.target.id;
     lightOffOperators()
     e.target.classList.add("active")
 }
 
-function checkForOperation(){
+function checkForOperation(e){
     if (input !== "" && currentOperation !== ""){
         memory = performOperation(memory, input, currentOperation);
-        output()
+        output(e)
         return
     }else if(input !== ""){
+        
         memory = input;
-        output()
+        output(e)
+        return
+    }else if(memory !== ""){
+        output(e)
     }
 }
 
-function output(){
+function output(e){
     input = "";
     if  (memory.toString().includes(".")) {
         memory = Number(+memory).toFixed(9);
@@ -81,12 +94,16 @@ function output(){
         displayText.textContent = "Try calling MIT?";
         return
     }
+    if (e.target.classList.contains('operator')){
+        memoryText.textContent = `${memory} ${e.target.dataset.key}` 
+    }
     displayText.textContent = memory;
+
     return
 }
 
-function getResult(){
-    checkForOperation();
+function getResult(e){
+    checkForOperation(e);
     currentOperation = "";
     input = "";
 }
