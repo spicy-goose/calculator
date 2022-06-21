@@ -39,6 +39,7 @@ function updateDisplay(e){
     }
     //disables users from inputting multiple dots
     if (input.includes(".") && e.target.innerText == ".") return undefined; 
+    if (input === "0") input = "" 
     input += e.target.innerText;
     displayText.textContent = input;
     lightOffOperators()
@@ -129,8 +130,23 @@ function changeSign(){
 }
 
 function removeLastCharacter(){
-    input = input.substring(0,input.length-1);
-    displayText.textContent = input;
+    if (input.length > 1){
+        input = input.substring(0,input.length-1);
+        displayText.textContent = input;
+    }else {
+        input = "0";
+        displayText.textContent = input;
+    }
+    return
+}
+
+function handleKeyPress(e){
+    //selects key that matches keycode
+    const keyToPress = document.querySelector(`button[data-key = "${e.key.toLowerCase()}"]`)
+    if (keyToPress){
+        keyToPress.click()
+    }
+    return 
 }
 
 
@@ -140,3 +156,4 @@ clearKey.addEventListener("click", clearDisplay);
 equalKey.addEventListener("click", getResult);
 signChange.addEventListener("click", changeSign);
 backspace.addEventListener("click", removeLastCharacter)
+document.addEventListener('keydown', handleKeyPress)
