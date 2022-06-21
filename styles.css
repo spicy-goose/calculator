@@ -18,6 +18,7 @@ body{
     padding: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 .display{
     background-color: lightblue;
@@ -26,6 +27,7 @@ body{
     margin-bottom: 10px;
     display: flex;
     align-items: center;
+    padding: 10px;
 }
 .display-text{
     margin:0;
@@ -38,6 +40,7 @@ body{
 .pad{
     display: flex;
     flex-direction: row;
+    padding: 10px;
 }
 .column{
     display: flex;
@@ -55,4 +58,15 @@ button{
 }
 .active{
     background-color: lightsalmon;
+}
+.operator, .equal, #clear{
+    background-color: darkgrey;
+}
+
+.backspace{
+    width: 50px;
+    height: 30px;
+    align-self: flex-end;
+    margin-right: 10px;
+    background-color: darksalmon;
 }

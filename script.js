@@ -4,7 +4,7 @@ const operators = Array.from(document.querySelectorAll(".operator"));
 const equalKey = document.getElementById('equal');
 const clearKey = document.getElementById('clear');
 const signChange = document.getElementById('sign-change');
-
+const backspace = document.querySelector('.backspace');
 
 let memory = ""; 
 let input = "";
@@ -128,9 +128,15 @@ function changeSign(){
     return
 }
 
+function removeLastCharacter(){
+    input = input.substring(0,input.length-1);
+    displayText.textContent = input;
+}
+
 
 keys.forEach(key => key.addEventListener('click', updateDisplay));
 operators.forEach(operator => operator.addEventListener('click', lightUpOperator));
 clearKey.addEventListener("click", clearDisplay);
 equalKey.addEventListener("click", getResult);
 signChange.addEventListener("click", changeSign);
+backspace.addEventListener("click", removeLastCharacter)
