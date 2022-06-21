@@ -12,6 +12,7 @@ body{
     align-items: center;
     margin: 0;
     background-image:linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("https://img.freepik.com/free-vector/realistic-science-background_23-2148479462.jpg?w=2000");
+    background-position: left;
 }
 .container{
     border-radius: 5px;
